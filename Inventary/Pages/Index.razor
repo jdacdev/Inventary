@@ -1,27 +1,10 @@
 ﻿@page "/"
 
-<input type="text" @bind-value ="@firtsName"/>
-<input type="text" @bind-value="@lastName" />
-<input type="button" value="Ok" @onclick="ChangeText"/>
-
 <div>
     <h3>Hello, world!</h3>
 </div>
-<div>
-    @message
-</div>
 
-@code{
-    string message = "";
-    string firtsName = "Nombres";
-    string lastName = "Apellidos";
-
-    private void ChangeText()
-    {
-        message = string.Format("Bienvenido {0} {1}",firtsName,lastName);
-    }
-}
-
+<FormExample/>
 
 Welcome to your new app.
 

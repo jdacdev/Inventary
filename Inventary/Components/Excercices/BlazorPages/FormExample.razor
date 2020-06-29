@@ -1,0 +1,18 @@
+﻿<input type="text" @bind-value="@firtsName" />
+<input type="text" @bind-value="@lastName" />
+<input type="button" value="Ok" @onclick="ChangeText" />
+
+<div>
+    @message
+</div>
+
+@code{
+    string message = "";
+    string firtsName = "Nombres";
+    string lastName = "Apellidos";
+
+    private void ChangeText()
+    {
+        message = string.Format("Bienvenido {0} {1}", firtsName, lastName);
+    }
+}
