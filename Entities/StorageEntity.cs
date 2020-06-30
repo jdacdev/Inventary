@@ -21,9 +21,9 @@ namespace Entities
 
         public ProductEntity Product { get; set; }
 
-        public string WherehouseId { get; set; }
+        public string WarehouseId { get; set; }
 
-        public WherehouseEntity Wherehouse { get; set; }
+        public WarehouseEntity Warehouse { get; set; }
 
         public ICollection<InOutEntity> InOuts { get; set; }
     }

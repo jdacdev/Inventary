@@ -5,20 +5,20 @@ using System.Text;
 
 namespace Entities
 {
-    public class WherehouseEntity
+    public class WarehouseEntity
     {
         [Key]
         [StringLength(50)]
-        public string WherehouseEntityId { get; set; }
+        public string WarehouseEntityId { get; set; }
 
         [Required]        
         [StringLength(100)]
-        public string WherehouseEntityName { get; set; }
+        public string WarehouseEntityName { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string WherehouseEntityAddress { get; set; }
+        public string WarehouseEntityAddress { get; set; }
 
-        public ICollection<ProductEntity> Products { get; set; }
+        public ICollection<StorageEntity> Storages { get; set; }
     }
 }
