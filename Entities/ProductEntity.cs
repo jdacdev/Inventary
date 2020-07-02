@@ -17,7 +17,7 @@ namespace Entities
 
         //[Required]
         [StringLength(600)]
-        public string CategoryDescription { get; set; }
+        public string ProductDescription { get; set; }
 
         public int TotalQuantity { get; set; }
 

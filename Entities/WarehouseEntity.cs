@@ -9,15 +9,15 @@ namespace Entities
     {
         [Key]
         [StringLength(50)]
-        public string WarehouseEntityId { get; set; }
+        public string WarehouseId { get; set; }
 
         [Required]        
         [StringLength(100)]
-        public string WarehouseEntityName { get; set; }
+        public string WarehouseName { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string WarehouseEntityAddress { get; set; }
+        public string WarehouseAddress { get; set; }
 
         public ICollection<StorageEntity> Storages { get; set; }
     }
