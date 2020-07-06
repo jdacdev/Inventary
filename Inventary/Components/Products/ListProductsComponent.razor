@@ -1,0 +1,56 @@
+﻿@using Entities
+@using Business
+
+<hr />
+<select class="form-control" @onchange="CategoryChange">
+    <option value="">Seleccionar categoría..</option>
+    @foreach (var category in categoryList)
+    {
+        <option value="@category.CategoryId">@category.CategoryName</option>
+    }
+</select>
+<hr />
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Referencia</th>
+            <th>Nombre producto</th>
+            <th>Categoría</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var product in productList)
+        {
+        <tr>
+            <td>@product.ProductId</td>
+            <td>@product.ProductName</td>
+            <td>@product.CategoryId</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+    List<ProductEntity> productList = new List<ProductEntity>();
+
+    List<CategoryEntity> categoryList = new List<CategoryEntity>();
+
+
+    //lista temporal para consultar con base a los  filtros
+    List<ProductEntity> productListTemp = new List<ProductEntity>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        productList = B_Product.ListProducts();
+        categoryList = B_Category.ListCategories();
+
+        productListTemp = productList;
+    }
+
+    private void CategoryChange(ChangeEventArgs e)
+    {
+        productList = productListTemp.Where(x => x.CategoryId == e.Value.ToString()).ToList();
+    }
+}

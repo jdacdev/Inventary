@@ -14,7 +14,7 @@ namespace Business
         /// Llamado simple de los elementos de Products
         /// </summary>
         /// <returns>List<ProductEntity></returns>
-        public List<ProductEntity> ListProducts()
+        public static List<ProductEntity> ListProducts()
         {
             //la var db existe solo dentro de los corchetes del using
             //este using es utlizado para definir el tiempo de vida de un objeto.
@@ -24,7 +24,7 @@ namespace Business
             }
         }
 
-        public void CreateProduct(ProductEntity objProduct)
+        public static void CreateProduct(ProductEntity objProduct)
         {
             using (var db = new InventaryContext())
             {
@@ -33,7 +33,7 @@ namespace Business
             }
         }
 
-        public void UpdateProduct(ProductEntity objProduct)
+        public static void UpdateProduct(ProductEntity objProduct)
         {
             using (var db = new InventaryContext())
             {

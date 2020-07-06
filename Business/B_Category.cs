@@ -14,7 +14,7 @@ namespace Business
         /// Llamado simple de los elementos de Catogories
         /// </summary>
         /// <returns>List<CategoryEntity></returns>
-        public List<CategoryEntity> ListCategories()
+        public static List<CategoryEntity> ListCategories()
         {
             //la var db existe solo dentro de los corchetes del using
             //este using es utlizado para definir el tiempo de vida de un objeto.
@@ -24,7 +24,7 @@ namespace Business
             }
         }
 
-        public void CreateCategory(CategoryEntity objCategory)
+        public static void CreateCategory(CategoryEntity objCategory)
         {
             using (var db = new InventaryContext())
             {
@@ -33,7 +33,7 @@ namespace Business
             }
         }
 
-        public void UpdateCategory(CategoryEntity objCategory)
+        public static void UpdateCategory(CategoryEntity objCategory)
         {
             using (var db = new InventaryContext())
             {
