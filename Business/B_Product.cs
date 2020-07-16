@@ -24,6 +24,20 @@ namespace Business
             }
         }
 
+        /// <summary>
+        /// Llamado simple de productos
+        /// </summary>
+        /// <returns>List<ProductEntity></returns>
+        public static ProductEntity GetProductsById(string id)
+        {
+            //la var db existe solo dentro de los corchetes del using
+            //este using es utlizado para definir el tiempo de vida de un objeto.
+            using (var db = new InventaryContext())
+            {
+                return db.Products.ToList().Where(x => x.ProductId.Equals(id)).FirstOrDefault();
+            }
+        }
+
         public static void CreateProduct(ProductEntity objProduct)
         {
             using (var db = new InventaryContext())
