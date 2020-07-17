@@ -1,26 +1,21 @@
-﻿@using Entities
-@using Business
+﻿@using Entities;
+@using Business;
 
 @inject NavigationManager NavManager;
 
 <div>
     <EditForm Model="storage">
         <div class="form-group">
-            <label>Referencia:</label>
-            <InputText @bind-Value="storage.StorageId" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Ultima actualización:</label>
+            <label>Ultima Actualización:</label>
             <InputDate @bind-Value="storage.LastUpdate" class="form-control" />
         </div>
         <div class="form-group">
-            <label>Descripción del storageo:</label>
+            <label>Cantidad parcial:</label>
             <InputNumber @bind-Value="storage.PartialQuantity" class="form-control" />
         </div>
         <div class="form-group">
-            <label>Categoría:</label>
+            <label>Producto:</label>
             <InputSelect @bind-Value="storage.ProductId" class="form-control">
-                <option value="">Seleccionar cproducto..</option>
                 @foreach (var product in productList)
                 {
                     <option value="@product.ProductId">@product.ProductName</option>
@@ -28,23 +23,28 @@
             </InputSelect>
         </div>
         <div class="form-group">
-            <label>Categoría:</label>
+            <label>Bodega:</label>
             <InputSelect @bind-Value="storage.WarehouseId" class="form-control">
-                <option value="">Seleccionar bodega..</option>
                 @foreach (var warehouse in warehouseList)
                 {
                     <option value="@warehouse.WarehouseId">@warehouse.WarehouseName</option>
                 }
             </InputSelect>
         </div>
-        <input type="button" value="Agregar almacenamiento" @onclick="SaveStorage" />
+        <input type="button" value="Actualizar almacenamiento" @onclick="SaveStorage" />
     </EditForm>
 
 </div>
+
 @code {
+
+    [Parameter]
+    public string IdStorage { get; set; }
+
     StorageEntity storage = new StorageEntity();
 
     List<ProductEntity> productList = new List<ProductEntity>();
+
     List<WarehouseEntity> warehouseList = new List<WarehouseEntity>();
 
 
@@ -52,11 +52,13 @@
     {
         productList = B_Product.ListProducts();
         warehouseList = B_Warehouse.ListWarehouses();
+
+        storage = B_Storage.GetStoragesById(IdStorage);
     }
 
     private void SaveStorage()
     {
-        B_Storage.CreateStorage(storage);
+        B_Storage.UpdateStorage(storage);
         NavManager.NavigateTo("storage/list");
     }
 }

@@ -14,7 +14,7 @@ namespace Business
         /// Llamado simple de los elementos de InOuts
         /// </summary>
         /// <returns>List<InOutEntity></returns>
-        public List<InOutEntity> ListInOuts()
+        public static List<InOutEntity> ListInOuts()
         {
             //la var db existe solo dentro de los corchetes del using
             //este using es utlizado para definir el tiempo de vida de un objeto.
@@ -24,7 +24,7 @@ namespace Business
             }
         }
 
-        public void CreateInOut(InOutEntity objInOut)
+        public static void CreateInOut(InOutEntity objInOut)
         {
             using (var db = new InventaryContext())
             {
@@ -33,7 +33,7 @@ namespace Business
             }
         }
 
-        public void UpdateInOut(InOutEntity objInOut)
+        public static void UpdateInOut(InOutEntity objInOut)
         {
             using (var db = new InventaryContext())
             {

@@ -14,7 +14,7 @@ namespace Business
         /// Llamado simple de los elementos de Warehouses
         /// </summary>
         /// <returns>List<WarehouseEntity></returns>
-        public List<WarehouseEntity> ListWarehouses()
+        public static List<WarehouseEntity> ListWarehouses()
         {
             //la var db existe solo dentro de los corchetes del using
             //este using es utlizado para definir el tiempo de vida de un objeto.
@@ -24,7 +24,7 @@ namespace Business
             }
         }
 
-        public void CreateWarehouse(WarehouseEntity objWarehouse)
+        public static void CreateWarehouse(WarehouseEntity objWarehouse)
         {
             using (var db = new InventaryContext())
             {
@@ -33,7 +33,7 @@ namespace Business
             }
         }
 
-        public void UpdateWarehouse(WarehouseEntity objWarehouse)
+        public static void UpdateWarehouse(WarehouseEntity objWarehouse)
         {
             using (var db = new InventaryContext())
             {

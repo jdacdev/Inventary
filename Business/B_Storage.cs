@@ -14,7 +14,7 @@ namespace Business
         /// Llamado simple de los elementos de Storages
         /// </summary>
         /// <returns>List<StorageEntity></returns>
-        public List<StorageEntity> ListStorages()
+        public static List<StorageEntity> ListStorages()
         {
             //la var db existe solo dentro de los corchetes del using
             //este using es utlizado para definir el tiempo de vida de un objeto.
@@ -24,7 +24,21 @@ namespace Business
             }
         }
 
-        public void CreateStorage(StorageEntity objStorage)
+        /// <summary>
+        /// Llamado simple de productos
+        /// </summary>
+        /// <returns>List<ProductEntity></returns>
+        public static StorageEntity GetStoragesById(string id)
+        {
+            //la var db existe solo dentro de los corchetes del using
+            //este using es utlizado para definir el tiempo de vida de un objeto.
+            using (var db = new InventaryContext())
+            {
+                return db.Storages.ToList().Where(x => x.StorageId.Equals(id)).FirstOrDefault();
+            }
+        }
+
+        public static void CreateStorage(StorageEntity objStorage)
         {
             using (var db = new InventaryContext())
             {
@@ -33,7 +47,7 @@ namespace Business
             }
         }
 
-        public void UpdateStorage(StorageEntity objStorage)
+        public static void UpdateStorage(StorageEntity objStorage)
         {
             using (var db = new InventaryContext())
             {

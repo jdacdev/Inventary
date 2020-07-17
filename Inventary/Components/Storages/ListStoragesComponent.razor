@@ -1,0 +1,77 @@
+﻿@using Entities
+@using Business
+
+<hr />
+<select class="form-control" @onchange="ProductChange">
+    <option value="">Seleccionar producto..</option>
+    @foreach (var product in productList)
+    {
+        <option value="@product.ProductId">@product.ProductName</option>
+    }
+</select>
+<hr />
+<hr />
+<select class="form-control" @onchange="WarehouseChange">
+    <option value="">Seleccionar bodega..</option>
+    @foreach (var warehouse in warehouseList)
+    {
+        <option value="@warehouse.WarehouseId">@warehouse.WarehouseName</option>
+    }
+</select>
+<hr />
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Referencia</th>
+            <th>Últuma actualización</th>
+            <th>Cantidad parcial</th>
+            <th>Referencia de producto</th>
+            <th>Referencia de bodega</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var storage in storageList)
+        {
+            <tr>
+                <td>@storage.StorageId</td>
+                <td>@storage.LastUpdate</td>
+                <td>@storage.PartialQuantity</td>
+                <td>@storage.ProductId</td>
+                <td>@storage.WarehouseId</td>
+                <td><a href="/storage/update/@storage.StorageId">Actualizar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+    List<StorageEntity> storageList = new List<StorageEntity>();
+
+    List<ProductEntity> productList = new List<ProductEntity>();
+
+    List<WarehouseEntity> warehouseList = new List<WarehouseEntity>();
+
+    //lista temporal para consultar con base a los  filtros
+    List<StorageEntity> storageListTemp = new List<StorageEntity>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        storageList = B_Storage.ListStorages();
+        productList = B_Product.ListProducts();
+        warehouseList = B_Warehouse.ListWarehouses();
+
+        storageListTemp = storageList;
+    }
+
+    private void ProductChange(ChangeEventArgs e)
+    {
+        storageList = storageListTemp.Where(x => x.ProductId == e.Value.ToString()).ToList();
+    }
+
+    private void WarehouseChange(ChangeEventArgs e)
+    {
+        storageList = storageListTemp.Where(x => x.WarehouseId == e.Value.ToString()).ToList();
+    }
+}
