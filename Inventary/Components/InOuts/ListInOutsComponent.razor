@@ -1,0 +1,66 @@
+﻿@using Entities
+@using Business
+
+<hr />
+@*<select class="form-control" @onchange="ProductChange">
+    <option value="">Seleccionar producto..</option>
+    @foreach (var product in productList)
+    {
+        <option value="@product.ProductId">@product.ProductName</option>
+    }
+</select>
+<hr />*@
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Cantidad</th>
+            <th>Es Entrada</th>
+            <th>Referencia de almacenamiento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inout in inoutList)
+        {
+        <tr>
+            <td>@inout.DateTime</td>
+            <td>@inout.Quantity</td>
+            @if (inout.IsInput)
+            {
+                <td>Si</td>
+            }
+            else
+            {
+                <td>No</td>
+            }
+
+            <td>@inout.StorageId</td>
+            <td><a href="/inout/update/@inout.InOutId">Actualizar</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+    List<InOutEntity> inoutList = new List<InOutEntity>();
+
+    List<ProductEntity> productList = new List<ProductEntity>();
+
+    //lista temporal para consultar con base a los  filtros
+    List<InOutEntity> inoutListTemp = new List<InOutEntity>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        inoutList = B_InOut.ListInOuts();
+        productList = B_Product.ListProducts();
+
+        inoutListTemp = inoutList;
+    }
+
+    //private void ProductChange(ChangeEventArgs e)
+    //{
+    //    inoutList = inoutListTemp.Where(x => x.ProductId == e.Value.ToString()).ToList();
+    //}
+}

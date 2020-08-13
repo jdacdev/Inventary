@@ -23,11 +23,26 @@ namespace Business
                 return db.Warehouses.ToList();
             }
         }
+        
+        /// <summary>
+        /// Llamado simple de productos
+        /// </summary>
+        /// <returns>List<ProductEntity></returns>
+        public static WarehouseEntity GetWarehouseById(string id)
+        {
+            //la var db existe solo dentro de los corchetes del using
+            //este using es utlizado para definir el tiempo de vida de un objeto.
+            using (var db = new InventaryContext())
+            {
+                return db.Warehouses.ToList().Where(x => x.WarehouseId.Equals(id)).FirstOrDefault();
+            }
+        }
 
         public static void CreateWarehouse(WarehouseEntity objWarehouse)
         {
             using (var db = new InventaryContext())
             {
+                objWarehouse.WarehouseId = Guid.NewGuid().ToString();
                 db.Warehouses.Add(objWarehouse); //se añade el nuevo objeto
                 db.SaveChanges();   //se confirman los cambios - agregar el nuevo elemento a la bd
             }

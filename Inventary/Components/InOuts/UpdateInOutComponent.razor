@@ -1,0 +1,54 @@
+﻿@using Entities;
+@using Business;
+
+@inject NavigationManager NavManager;
+
+<div>
+    <EditForm Model="inout">
+        <div class="form-group">
+            <label>Fecha de registro:</label>
+            <InputDate @bind-Value="inout.DateTime" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Cantidad:</label>
+            <InputNumber @bind-Value="inout.Quantity" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Es entrada:</label>
+            <InputCheckbox @bind-Value="inout.IsInput" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Referencia de almacenamiento:</label>
+            <InputSelect @bind-Value="inout.StorageId" class="form-control">
+                @foreach (var storage in storageList)
+                {
+                    <option value="@storage.StorageId">@storage.StorageId</option>
+                }
+            </InputSelect>
+        </div>
+        <input type="button" value="Actualizar entrada/salida" @onclick="SaveInOut" />
+    </EditForm>
+
+</div>
+
+@code {
+
+    [Parameter]
+    public string IdInOut { get; set; }
+
+    InOutEntity inout = new InOutEntity();
+
+    List<StorageEntity> storageList = new List<StorageEntity>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        storageList = B_Storage.ListStorages();
+        inout = B_InOut.GetInOutsById(IdInOut);
+    }
+
+    private void SaveInOut()
+    {
+        B_InOut.UpdateInOut(inout);
+        NavManager.NavigateTo("inout/list");
+    }
+}

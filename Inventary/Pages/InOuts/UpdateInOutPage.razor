@@ -1,0 +1,17 @@
+﻿@page "/inout/update/{IdInOut}"
+
+<h3>Update InOut Page</h3>
+
+<UpdateInOutComponent IdInOut=@IdInOut/>
+
+@code {
+    [Parameter]
+    public string IdInOut { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        IdInOut = IdInOut;
+    }
+
+
+}

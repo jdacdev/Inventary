@@ -24,10 +24,25 @@ namespace Business
             }
         }
 
+        /// <summary>
+        /// Llamado simple de productos
+        /// </summary>
+        /// <returns>List<ProductEntity></returns>
+        public static InOutEntity GetInOutsById(string id)
+        {
+            //la var db existe solo dentro de los corchetes del using
+            //este using es utlizado para definir el tiempo de vida de un objeto.
+            using (var db = new InventaryContext())
+            {
+                return db.InOuts.ToList().Where(x => x.InOutId.Equals(id)).FirstOrDefault();
+            }
+        }
+
         public static void CreateInOut(InOutEntity objInOut)
         {
             using (var db = new InventaryContext())
             {
+                objInOut.InOutId = Guid.NewGuid().ToString();
                 db.InOuts.Add(objInOut); //se añade el nuevo objeto
                 db.SaveChanges();   //se confirman los cambios - agregar el nuevo elemento a la bd
             }
